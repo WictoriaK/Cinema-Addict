@@ -14,13 +14,4 @@ module.exports = {
       patterns: [{form: 'public'}]
     }),
   ],
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
-      }
-    ]
-  }
 };
