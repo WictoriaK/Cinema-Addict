@@ -6,7 +6,7 @@
   "browserslist": [
     "last 2 versions",
     "not dead",
-    "no ie <= 11",
+    "not ie <= 11",
     "not op_mini all",
     "not < 0.25%"
   ],
