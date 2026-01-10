@@ -3,12 +3,22 @@
   "version": "17.0.0",
   "private": true,
   "description": "Project «Cinemaddict» from HTML Academy",
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "no ie <= 11",
+    "not op_mini all",
+    "not < 0.25%"
+  ],
   "scripts": {
     "lint": "eslint src/",
     "build": "webpack --mode production",
     "start": "webpack serve --mode development --open"
   },
   "devDependencies": {
+    "@babel/core": "7.28.5",
+    "@babel/preset-env": "7.28.5",
+    "babel-loader": "10.0.0",
     "copy-webpack-plugin": "13.0.1",
     "eslint": "8.13.0",
     "eslint-config-htmlacademy": "5.1.2",
