@@ -11,7 +11,7 @@ module.exports = {
   devtool: 'source-map',
   plugins: [
     new CopyPlugin({
-      patterns: [{form: 'public'}]
+      patterns: [{from: 'public'}]
     }),
   ],
   module: {
@@ -19,7 +19,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: ['babel-loader']
       }
     ]
   }
