@@ -1,6 +1,4 @@
 import {getRandomPositiveInteger} from '../utils.js';
-import {commentsArray} from './comments.js';
-
 
 const getLinkedComments = (film, comments) => {
   const linkedComments = comments.find((comment) => comment.id === film.comments.id);
@@ -45,14 +43,4 @@ const generateFilm = () => ({
   }
 });
 
-
-const films = Array.from({ length: 10 }, () => {
-  const film = generateFilm();
-
-  return getLinkedComments(film, commentsArray);
-});
-
-console.log(films);
-
-
-export {films};
+export {getLinkedComments, generateFilm};
