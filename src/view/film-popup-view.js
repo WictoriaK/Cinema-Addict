@@ -39,7 +39,7 @@ const createFilmPopupTemplate = (film) =>  {
   const genresTemplate = createFilmGenresTemplate(filmInfo.genre);
   const commentsTemplate = createCommentTemplate(comments);
 
-  const commentsEmojis = createNewCommentTemplate();
+  const commentsEmojisTemplate = createNewCommentTemplate();
 
   return (`<section class="film-details">
   <form class="film-details__inner" action="" method="get">
@@ -128,7 +128,7 @@ ${commentsTemplate}
           </label>
 
           <div class="film-details__emoji-list">
-            ${commentsEmojis}
+            ${commentsEmojisTemplate}
           </div>
         </div>
       </section>
