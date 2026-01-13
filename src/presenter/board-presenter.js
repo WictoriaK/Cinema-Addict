@@ -5,7 +5,8 @@ import FilmsContainerView from '../view/films-container-view.js';
 import FilmsListView from '../view/films-list-view.js';
 import FilmsListContainerView from '../view/films-list-container.js';
 import ShowMoreBtnView from '../view/show-more-button-view.js';
-import FilmsCardView from '../view/film-card-view.js';
+// import FilmsCardView from '../view/film-card-view.js';
+import FilmPopupView from '../view/film-popup-view.js';
 
 
 export default class BoardPresenter {
@@ -23,9 +24,12 @@ export default class BoardPresenter {
     render(this.filmsListComponent, this.filmsContainer.getElement());
     render(this.filmsList, this.filmsListComponent.getElement());
 
-    for (let i = 0; i < this.boardFilms.length; i++) {
-      render(new FilmsCardView(this.boardFilms[i]), this.filmsList.getElement());
-    }
+    // for (let i = 0; i < this.boardFilms.length; i++) {
+    //   render(new FilmsCardView(this.boardFilms[i]), this.filmsList.getElement());
+    // }
+
+    render(new FilmPopupView(this.boardFilms[0]), this.boardContainer);
+
 
     render(new ShowMoreBtnView(), this.boardContainer);
 

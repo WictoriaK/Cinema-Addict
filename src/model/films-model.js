@@ -1,11 +1,8 @@
-import {commentsArray} from '../mock/comments.js';
-import {generateFilm, getLinkedComments} from '../mock/film.js';
+
+import {films} from '../mock/film.js';
 
 export default class FilmsModel {
-  films = Array.from({length: 4}, () => {
-    const film = generateFilm();
-    return getLinkedComments(film, commentsArray);
-  });
+  films = films;
 
   getFilms = () => this.films;
 }

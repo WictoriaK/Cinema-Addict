@@ -1,7 +1,19 @@
-import {getRandomPositiveInteger} from '../utils.js';
+import {getRandomArrayElement, getRandomPositiveInteger} from '../utils.js';
+import {commentsById} from './comments.js';
 
-const getLinkedComments = (film, comments) => {
-  const linkedComments = comments.find((comment) => comment.id === film.comments.id);
+
+const filmsTile = [
+  'Крёстный отец',
+  'Интерстеллар',
+  'Властелин колец: Братство кольца',
+  'Начало',
+  'Форрест Гамп',
+  'Звёздные войны. Эпизод IV: Новая надежда'
+];
+
+
+const getLinkedComments = (film, commentsArray) => {
+  const linkedComments = film.comments.map((comment) => commentsArray.get(comment));
 
   return {
     ...film,
@@ -9,17 +21,20 @@ const getLinkedComments = (film, comments) => {
   };
 };
 
+
 const generateFilm = () => ({
-  id: 0,
-  comments: [getRandomPositiveInteger(0, 4), getRandomPositiveInteger(0,4)],
+  id: getRandomPositiveInteger(1, 5),
+  comments: [1, 2, 3],
   filmInfo: {
-    title: 'A Little Pony Without The Carpet',
+    title: getRandomArrayElement(filmsTile),
     alternativeTitle: 'Laziness Who Sold Themselves',
-    totalRating: 5.3,
-    poster: 'images/posters/blue-blazes.jpg',
-    ageRating: 0,
+    totalRating: getRandomPositiveInteger(1, 10),
+    poster: 'images/posters/popeye-meets-sinbad.png',
+    ageRating: `${getRandomPositiveInteger(1, 21)}+`,
     director: 'Tom Ford',
     writers: [
+      'Takeshi Kitano',
+      'Takeshi Kitano',
       'Takeshi Kitano'
     ],
     actors: [
@@ -31,7 +46,8 @@ const generateFilm = () => ({
     },
     runtime: 77,
     genre: [
-      'Comedy'
+      'Comedy',
+      'Horror'
     ],
     description: 'Oscar-winning film, a war drama about two young people, from the creators of timeless classic "Nu, Pogodi!" and "Alice in Wonderland", with the best fight scenes since Bruce Lee.'
   },
@@ -43,4 +59,11 @@ const generateFilm = () => ({
   }
 });
 
-export {getLinkedComments, generateFilm};
+const films = Array.from({length: 4}, () => {
+  const film = generateFilm();
+
+  return getLinkedComments(film, commentsById);
+});
+
+
+export {films};

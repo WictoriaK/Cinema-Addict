@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 const getRandomPositiveInteger = (a = 0, b = 1) => {
   if (a === undefined) {
     throw new Error('Первый параметр должен быть число');
@@ -12,4 +14,6 @@ const getRandomPositiveInteger = (a = 0, b = 1) => {
 
 const getRandomArrayElement = (array) => array[getRandomPositiveInteger(0, array.length - 1)];
 
-export {getRandomPositiveInteger, getRandomArrayElement};
+const humanizeDate = (date, dateFormat) => dayjs(date).format(dateFormat);
+
+export {getRandomPositiveInteger, getRandomArrayElement, humanizeDate};
