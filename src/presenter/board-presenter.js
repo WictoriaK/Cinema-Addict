@@ -15,6 +15,7 @@ export default class BoardPresenter {
   #filmsModel = null;
 
   #boardFilms = [];
+  #renderedFilmsCount = FILMS_COUNT;
 
   #filmsContainer = new FilmsContainerView(); // section class="films"
   #filmsListComponent = new FilmsListView(); // section class="films-list" внутри  class="films"
@@ -31,12 +32,12 @@ export default class BoardPresenter {
     render(this.#filmsListComponent, this.#filmsContainer.element);
     render(this.#filmsList, this.#filmsListComponent.element);
 
-    for (let i = 0; i < this.#boardFilms.length; i++) {
+    for (let i = 0; i < Math.min(this.#boardFilms.length, FILMS_COUNT); i++) {
       this.#renderFilm(this.#boardFilms[i]);
     }
 
     if(this.#boardFilms.length > FILMS_COUNT) {
-      render(new ShowMoreBtnView(), this.#boardContainer);
+      render(this.#loadMoreBtn, this.#boardContainer);
 
       this.#loadMoreBtn.element.addEventListener('click', this.#handleLoadMoreButtonClick);
     }
@@ -45,6 +46,17 @@ export default class BoardPresenter {
 
   #handleLoadMoreButtonClick = (evt) => {
     evt.preventDefault();
+
+    this.#boardFilms.slice(this.#renderedFilmsCount, this.#renderedFilmsCount + FILMS_COUNT).forEach((film) => {
+      this.#renderFilm(film);
+    });
+
+    this.#renderedFilmsCount += FILMS_COUNT;
+
+    if(this.#renderedFilmsCount >= this.#boardFilms.length) {
+      this.#loadMoreBtn.element.remove();
+      this.#loadMoreBtn.removeElement();
+    }
   };
 
   #renderFilm = (film) => {
