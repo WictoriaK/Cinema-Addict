@@ -7,4 +7,6 @@ const DATE_FORMATS = {
 
 const commentsEmojis = ['smile', 'sleeping', 'puke', 'angry'];
 
-export {DATE_FORMATS, commentsEmojis};
+const FILMS_COUNT = 5;
+
+export {DATE_FORMATS, commentsEmojis, FILMS_COUNT};

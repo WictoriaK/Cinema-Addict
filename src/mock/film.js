@@ -59,7 +59,7 @@ const generateFilm = () => ({
   }
 });
 
-const films = Array.from({length: 4}, () => {
+const films = Array.from({length: 21}, () => {
   const film = generateFilm();
 
   return getLinkedComments(film, commentsById);
