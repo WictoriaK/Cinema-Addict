@@ -7,6 +7,7 @@ import FilmsListContainerView from '../view/films-list-container.js';
 import ShowMoreBtnView from '../view/show-more-button-view.js';
 import FilmsCardView from '../view/film-card-view.js';
 import FilmPopupView from '../view/film-popup-view.js';
+import {FILMS_COUNT} from '../const.js';
 
 
 export default class BoardPresenter {
@@ -18,6 +19,7 @@ export default class BoardPresenter {
   #filmsContainer = new FilmsContainerView(); // section class="films"
   #filmsListComponent = new FilmsListView(); // section class="films-list" внутри  class="films"
   #filmsList = new FilmsListContainerView(); // section class="films-list__container" внутри  class="films-list" где карточки фильмов
+  #loadMoreBtn = new ShowMoreBtnView();
 
   init = (boardContainer, filmsModel) => {
     this.#boardContainer = boardContainer;
@@ -33,10 +35,17 @@ export default class BoardPresenter {
       this.#renderFilm(this.#boardFilms[i]);
     }
 
-    render(new ShowMoreBtnView(), this.#boardContainer);
+    if(this.#boardFilms.length > FILMS_COUNT) {
+      render(new ShowMoreBtnView(), this.#boardContainer);
+
+      this.#loadMoreBtn.element.addEventListener('click', this.#handleLoadMoreButtonClick);
+    }
 
   };
 
+  #handleLoadMoreButtonClick = (evt) => {
+    evt.preventDefault();
+  };
 
   #renderFilm = (film) => {
     const siteBody = document.querySelector('body');
