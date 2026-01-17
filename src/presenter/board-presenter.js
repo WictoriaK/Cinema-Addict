@@ -1,4 +1,4 @@
-import {render, RenderPosition} from '../render';
+import {render} from '../render';
 
 import SortView from '../view/sort-view.js';
 import FilmsContainerView from '../view/films-container-view.js';
@@ -24,32 +24,15 @@ export default class BoardPresenter {
   #loadMoreBtn = new ShowMoreBtnView();
   #noFilmsView = new NoFilmsView();
 
-  init = (boardContainer, filmsModel) => {
+  constructor(boardContainer, filmsModel) {
     this.#boardContainer = boardContainer;
     this.#filmsModel = filmsModel;
+  }
+
+  init = () => {
     this.#boardFilms = [...this.#filmsModel.films];
 
-
-    if(this.#boardFilms.length === 0) {
-      render(this.#noFilmsView, this.#filmsListComponent);
-    } else {
-      render(new SortView(), this.#boardContainer);
-      render(this.#filmsContainer, this.#boardContainer);
-      render(this.#filmsListComponent, this.#filmsContainer.element);
-      render(this.#filmsList, this.#filmsListComponent.element);
-
-      for (let i = 0; i < Math.min(this.#boardFilms.length, FILMS_COUNT); i++) {
-        this.#renderFilm(this.#boardFilms[i]);
-      }
-    }
-
-
-    if(this.#boardFilms.length > FILMS_COUNT) {
-      render(this.#loadMoreBtn, this.#boardContainer);
-
-      this.#loadMoreBtn.element.addEventListener('click', this.#handleLoadMoreButtonClick);
-    }
-
+    this.#renderBoard();
   };
 
   #handleLoadMoreButtonClick = (evt) => {
@@ -106,4 +89,26 @@ export default class BoardPresenter {
     render(filmComponent, this.#filmsList.element);
   };
 
+  #renderBoard = () => {
+
+    if (this.#boardFilms.length === 0) {
+      render(this.#noFilmsView, this.#filmsListComponent);
+    } else {
+      render(new SortView(), this.#boardContainer);
+      render(this.#filmsContainer, this.#boardContainer);
+      render(this.#filmsListComponent, this.#filmsContainer.element);
+      render(this.#filmsList, this.#filmsListComponent.element);
+
+      for (let i = 0; i < Math.min(this.#boardFilms.length, FILMS_COUNT); i++) {
+        this.#renderFilm(this.#boardFilms[i]);
+      }
+    }
+
+
+    if (this.#boardFilms.length > FILMS_COUNT) {
+      render(this.#loadMoreBtn, this.#boardContainer);
+
+      this.#loadMoreBtn.element.addEventListener('click', this.#handleLoadMoreButtonClick);
+    }
+  };
 }

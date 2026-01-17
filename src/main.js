@@ -15,7 +15,7 @@ const siteFooter = document.querySelector('.footer');
 const footerStatisticsContainer = siteFooter.querySelector('.footer__statistics');
 
 const filmsModel = new FilmsModel();
-const boardPresenter = new BoardPresenter();
+const boardPresenter = new BoardPresenter(siteMain, filmsModel);
 
 
 render(new UserProfileView(), siteHeader);
@@ -23,4 +23,4 @@ render(new FilterView(), siteMain);
 
 render(new FooterStatisticsView(), footerStatisticsContainer);
 
-boardPresenter.init(siteMain, filmsModel);
+boardPresenter.init();
