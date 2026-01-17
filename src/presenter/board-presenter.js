@@ -15,9 +15,9 @@ export default class BoardPresenter {
 
   #boardFilms = [];
 
-  #filmsContainer = new FilmsContainerView();
-  #filmsListComponent = new FilmsListView();
-  #filmsList = new FilmsListContainerView();
+  #filmsContainer = new FilmsContainerView(); // section class="films"
+  #filmsListComponent = new FilmsListView(); // section class="films-list" внутри  class="films"
+  #filmsList = new FilmsListContainerView(); // section class="films-list__container" внутри  class="films-list" где карточки фильмов
 
   init = (boardContainer, filmsModel) => {
     this.#boardContainer = boardContainer;
@@ -30,14 +30,21 @@ export default class BoardPresenter {
     render(this.#filmsList, this.#filmsListComponent.element);
 
     for (let i = 0; i < this.#boardFilms.length; i++) {
-      render(new FilmsCardView(this.#boardFilms[i]), this.#filmsList.element);
+      this.#renderFilm(this.#boardFilms[i]);
     }
 
     // render(new FilmPopupView(this.boardFilms[0]), this.boardContainer);
 
-
     render(new ShowMoreBtnView(), this.#boardContainer);
 
+  };
+
+
+
+  #renderFilm = (film) => {
+    const filmComponent = new FilmsCardView(film);
+
+    render(filmComponent, this.#filmsList.element);
   };
 
 }
