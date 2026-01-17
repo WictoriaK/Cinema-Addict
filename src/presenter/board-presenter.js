@@ -33,11 +33,10 @@ export default class BoardPresenter {
       this.#renderFilm(this.#boardFilms[i]);
     }
 
-    // render(new FilmPopupView(this.boardFilms[0]), this.boardContainer);
-
     render(new ShowMoreBtnView(), this.#boardContainer);
 
   };
+
 
   #renderFilm = (film) => {
     const siteBody = document.querySelector('body');
@@ -56,13 +55,24 @@ export default class BoardPresenter {
     };
 
 
+    const onEscKeyDown = (evt) => {
+      if (evt.key === 'Escape' || evt.key === 'Esc') {
+        evt.preventDefault();
+        replacePopupToCardFilm();
+        document.removeEventListener('keydown', onEscKeyDown);
+      }
+    };
+
     filmComponent.element.addEventListener('click', () => {
       replaceCardFilmToPopup();
+      document.addEventListener('keydown', onEscKeyDown);
     });
 
     filmPopup.element.querySelector('.film-details__close-btn').addEventListener('click', () => {
       replacePopupToCardFilm();
+      document.removeEventListener('keydown', onEscKeyDown);
     });
+
 
     render(filmComponent, this.#filmsList.element);
   };
