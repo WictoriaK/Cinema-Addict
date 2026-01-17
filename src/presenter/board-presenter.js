@@ -39,10 +39,30 @@ export default class BoardPresenter {
 
   };
 
-
-
   #renderFilm = (film) => {
+    const siteBody = document.querySelector('body');
     const filmComponent = new FilmsCardView(film);
+    const filmPopup = new FilmPopupView(film);
+
+    const replaceCardFilmToPopup = () => {
+      siteBody.classList.add('hide-overflow');
+      siteBody.append(filmPopup.element);
+    };
+
+    const replacePopupToCardFilm = () => {
+      siteBody.classList.remove('hide-overflow');
+      filmPopup.element.remove();
+      filmPopup.removeElement();
+    };
+
+
+    filmComponent.element.addEventListener('click', () => {
+      replaceCardFilmToPopup();
+    });
+
+    filmPopup.element.querySelector('.film-details__close-btn').addEventListener('click', () => {
+      replacePopupToCardFilm();
+    });
 
     render(filmComponent, this.#filmsList.element);
   };
