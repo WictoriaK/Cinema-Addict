@@ -1,4 +1,4 @@
-import {render} from '../render';
+import {render, RenderPosition} from '../render';
 
 import SortView from '../view/sort-view.js';
 import FilmsContainerView from '../view/films-container-view.js';
@@ -7,6 +7,7 @@ import FilmsListContainerView from '../view/films-list-container.js';
 import ShowMoreBtnView from '../view/show-more-button-view.js';
 import FilmsCardView from '../view/film-card-view.js';
 import FilmPopupView from '../view/film-popup-view.js';
+import NoFilmsView from '../view/no-films-view.js';
 import {FILMS_COUNT} from '../const.js';
 
 
@@ -21,20 +22,27 @@ export default class BoardPresenter {
   #filmsListComponent = new FilmsListView(); // section class="films-list" внутри  class="films"
   #filmsList = new FilmsListContainerView(); // section class="films-list__container" внутри  class="films-list" где карточки фильмов
   #loadMoreBtn = new ShowMoreBtnView();
+  #noFilmsView = new NoFilmsView();
 
   init = (boardContainer, filmsModel) => {
     this.#boardContainer = boardContainer;
     this.#filmsModel = filmsModel;
     this.#boardFilms = [...this.#filmsModel.films];
 
-    render(new SortView(), this.#boardContainer);
-    render(this.#filmsContainer, this.#boardContainer);
-    render(this.#filmsListComponent, this.#filmsContainer.element);
-    render(this.#filmsList, this.#filmsListComponent.element);
 
-    for (let i = 0; i < Math.min(this.#boardFilms.length, FILMS_COUNT); i++) {
-      this.#renderFilm(this.#boardFilms[i]);
+    if(this.#boardFilms.length === 0) {
+      render(this.#noFilmsView, this.#filmsListComponent);
+    } else {
+      render(new SortView(), this.#boardContainer);
+      render(this.#filmsContainer, this.#boardContainer);
+      render(this.#filmsListComponent, this.#filmsContainer.element);
+      render(this.#filmsList, this.#filmsListComponent.element);
+
+      for (let i = 0; i < Math.min(this.#boardFilms.length, FILMS_COUNT); i++) {
+        this.#renderFilm(this.#boardFilms[i]);
+      }
     }
+
 
     if(this.#boardFilms.length > FILMS_COUNT) {
       render(this.#loadMoreBtn, this.#boardContainer);
