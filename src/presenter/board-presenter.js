@@ -8,7 +8,7 @@ import ShowMoreBtnView from '../view/show-more-button-view.js';
 import FilmsCardView from '../view/film-card-view.js';
 import FilmPopupView from '../view/film-popup-view.js';
 import NoFilmsView from '../view/no-films-view.js';
-import {FILMS_COUNT} from '../const.js';
+import {FILMS_COUNT} from '../utils/const.js';
 
 
 export default class BoardPresenter {

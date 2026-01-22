@@ -1,5 +1,5 @@
-import {DATE_FORMATS} from '../const.js';
-import {humanizeDate} from '../utils.js';
+import {DATE_FORMATS} from '../utils/const.js';
+import {humanizeDate} from '../utils/film.js';
 import AbstractView from '../framework/view/abstract-view.js';
 
 const humanizeFilmDateRelease = (releaseDate) => humanizeDate(releaseDate, DATE_FORMATS.releaseDate);
