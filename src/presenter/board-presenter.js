@@ -1,4 +1,4 @@
-import {render} from '../render';
+import {render} from '../framework/render.js';
 
 import SortView from '../view/sort-view.js';
 import FilmsContainerView from '../view/films-container-view.js';

@@ -1,6 +1,6 @@
-import {createElement} from '../render.js';
 import {DATE_FORMATS, commentsEmojis} from '../const.js';
 import {humanizeDate} from '../utils.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 const humanizeFilmDateRelease = (releaseDate) => humanizeDate(releaseDate, DATE_FORMATS.releaseDate);
 const humanizeRunTime = (runtime) => humanizeDate(runtime, DATE_FORMATS.runtime);
@@ -138,11 +138,11 @@ ${commentsTemplate}
 };
 
 
-export default class FilmPopupView {
-  #element = null;
+export default class FilmPopupView extends AbstractView {
   #film = null;
 
   constructor(film) {
+    super();
     this.#film = film;
   }
 
@@ -150,15 +150,4 @@ export default class FilmPopupView {
     return createFilmPopupTemplate(this.#film);
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
-  }
 }
