@@ -1,4 +1,4 @@
-import {getRandomArrayElement, getRandomPositiveInteger} from '../utils.js';
+import {getRandomArrayElement, getRandomPositiveInteger} from '../utils/common.js';
 import {commentsById} from './comments.js';
 
 

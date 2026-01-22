@@ -1,6 +1,6 @@
-import {createElement} from '../render.js';
-import {DATE_FORMATS, commentsEmojis} from '../const.js';
-import {humanizeDate} from '../utils.js';
+import {DATE_FORMATS, commentsEmojis, BLANK_FILM} from '../utils/const.js';
+import { humanizeDate} from '../utils/film.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 const humanizeFilmDateRelease = (releaseDate) => humanizeDate(releaseDate, DATE_FORMATS.releaseDate);
 const humanizeRunTime = (runtime) => humanizeDate(runtime, DATE_FORMATS.runtime);
@@ -138,11 +138,11 @@ ${commentsTemplate}
 };
 
 
-export default class FilmPopupView {
-  #element = null;
+export default class FilmPopupView extends AbstractView {
   #film = null;
 
-  constructor(film) {
+  constructor(film = BLANK_FILM) {
+    super();
     this.#film = film;
   }
 
@@ -150,15 +150,16 @@ export default class FilmPopupView {
     return createFilmPopupTemplate(this.#film);
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
+  setClosePopupClickHandler = (callback) => {
+    this._callback.closePopup = callback;
 
-    return this.#element;
-  }
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#closePopupHandler);
+  };
 
-  removeElement() {
-    this.#element = null;
-  }
+  #closePopupHandler= (evt) => {
+    evt.preventDefault();
+
+    this._callback.closePopup();
+  };
+
 }

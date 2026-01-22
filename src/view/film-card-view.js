@@ -1,6 +1,6 @@
-import {createElement} from '../render.js';
-import {DATE_FORMATS} from '../const.js';
-import {humanizeDate} from '../utils.js';
+import {DATE_FORMATS} from '../utils/const.js';
+import {humanizeDate} from '../utils/film.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 const humanizeFilmDateRelease = (releaseDate) => humanizeDate(releaseDate, DATE_FORMATS.releaseDate);
 const humanizeRunTime = (runtime) => humanizeDate(runtime, DATE_FORMATS.runtime);
@@ -33,28 +33,27 @@ const createFilmsCardTemplate = (film) =>  {
         </article>`);
 };
 
-export default class FilmsCardView {
-  #element = null;
+export default class FilmsCardView extends AbstractView {
   #film  = null;
 
   constructor(film) {
+    super();
     this.#film = film;
   }
-
 
   get template() {
     return createFilmsCardTemplate(this.#film);
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
+  setOpenPopupClickHandler = (callback) => {
+    this._callback.popupClick = callback;
 
-    return this.#element;
-  }
+    this.element.addEventListener('click', this.#openPopupClickHandler);
+  };
 
-  removeElement() {
-    this.#element = null;
-  }
+  #openPopupClickHandler = (evt) => {
+    evt.preventDefault();
+
+    this._callback.popupClick();
+  };
 }

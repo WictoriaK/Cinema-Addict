@@ -1,4 +1,4 @@
-import {render} from '../render';
+import {render} from '../framework/render.js';
 
 import SortView from '../view/sort-view.js';
 import FilmsContainerView from '../view/films-container-view.js';
@@ -8,7 +8,7 @@ import ShowMoreBtnView from '../view/show-more-button-view.js';
 import FilmsCardView from '../view/film-card-view.js';
 import FilmPopupView from '../view/film-popup-view.js';
 import NoFilmsView from '../view/no-films-view.js';
-import {FILMS_COUNT} from '../const.js';
+import {FILMS_COUNT} from '../utils/const.js';
 
 
 export default class BoardPresenter {
@@ -35,9 +35,7 @@ export default class BoardPresenter {
     this.#renderBoard();
   };
 
-  #handleLoadMoreButtonClick = (evt) => {
-    evt.preventDefault();
-
+  #handleLoadMoreButtonClick = () => {
     this.#boardFilms.slice(this.#renderedFilmsCount, this.#renderedFilmsCount + FILMS_COUNT).forEach((film) => {
       this.#renderFilm(film);
     });
@@ -75,12 +73,12 @@ export default class BoardPresenter {
       }
     };
 
-    filmComponent.element.addEventListener('click', () => {
+    filmComponent.setOpenPopupClickHandler(() => {
       replaceCardFilmToPopup();
       document.addEventListener('keydown', onEscKeyDown);
     });
 
-    filmPopup.element.querySelector('.film-details__close-btn').addEventListener('click', () => {
+    filmPopup.setClosePopupClickHandler(() => {
       replacePopupToCardFilm();
       document.removeEventListener('keydown', onEscKeyDown);
     });
@@ -108,7 +106,7 @@ export default class BoardPresenter {
     if (this.#boardFilms.length > FILMS_COUNT) {
       render(this.#loadMoreBtn, this.#boardContainer);
 
-      this.#loadMoreBtn.element.addEventListener('click', this.#handleLoadMoreButtonClick);
+      this.#loadMoreBtn.setClickHandler(this.#handleLoadMoreButtonClick);
     }
   };
 }
