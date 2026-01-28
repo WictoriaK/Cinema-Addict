@@ -38,11 +38,18 @@ const BLANK_FILM = {
     description: 'Oscar-winning film, a war drama about two young people, from the creators of timeless classic "Nu, Pogodi!" and "Alice in Wonderland", with the best fight scenes since Bruce Lee.'
   },
   userDetails: {
-    watchlist: false,
+    watchlist: Boolean(),
     alreadyWatched: true,
     watchingDate: '2019-04-12T16:12:32.554Z',
     favorite: false
   }
 };
 
-export {DATE_FORMATS, commentsEmojis, FILMS_COUNT, BLANK_FILM};
+const FilterType = {
+  'ALL': 'all movies',
+  'WATCHLIST': 'watchlist',
+  'HISTORY': 'history',
+  'FAVORITE': 'favorite',
+};
+
+export {DATE_FORMATS, commentsEmojis, FILMS_COUNT, BLANK_FILM, FilterType};
